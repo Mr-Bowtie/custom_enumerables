@@ -6,14 +6,21 @@ module Enumerable
       end
       return self
     else
-      return to_enum
+      return to_enum(:my_each)
     end
   end
 
   def my_each_with_index
-    self.length.times do |itr|
-      yield self[itr], itr
+    iterator = 0
+    if block_given?
+      for el in self
+        yield el, iterator
+        iterator += 1
+      end
+      return self
+    else
     end
+    return to_enum(:my_each_with_index)
   end
 
   def my_select
