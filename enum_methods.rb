@@ -1,7 +1,12 @@
 module Enumerable
   def my_each
-    self.length.times do |itr|
-      yield self[itr]
+    if block_given?
+      for el in self
+        yield el
+      end
+      return self
+    else
+      return to_enum
     end
   end
 
@@ -14,7 +19,7 @@ module Enumerable
   def my_select
     true_arr = []
     self.length.times do |itr|
-      true_arr << self[itr] if yield(self[itr]) == true
+      true_arr << self[itr] if yield(self[itr])
     end
     true_arr
   end
