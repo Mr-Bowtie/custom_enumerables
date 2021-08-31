@@ -47,4 +47,15 @@ module Enumerable
     end
     true
   end
+
+  def my_any?(pattern = nil)
+    if block_given?
+      self.my_each { |el| return true if yield el }
+    elsif pattern
+      self.my_each { |el| return true if pattern === el }
+    else
+      self.my_each { |el| return true if el }
+    end
+    false
+  end
 end
