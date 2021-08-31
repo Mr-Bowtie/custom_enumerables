@@ -24,10 +24,16 @@ module Enumerable
   end
 
   def my_select
-    true_arr = []
-    self.length.times do |itr|
-      true_arr << self[itr] if yield(self[itr])
+    output = self.is_a?(Hash) ? {} : []
+    if block_given?
+      self.my_each do |el|
+        if yield el
+          self.is_a?(Hash) ? output.store(el[0], el[1]) : output << el
+        end
+      end
+      return output
+    else
+      return to_enum(:my_select)
     end
-    true_arr
   end
 end
