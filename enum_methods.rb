@@ -58,4 +58,15 @@ module Enumerable
     end
     false
   end
+
+  def my_none?(pattern = nil)
+    if block_given?
+      self.my_each { |el| return false if yield el }
+    elsif pattern
+      self.my_each { |el| return false if pattern === el }
+    else
+      self.my_each { |el| return false if el }
+    end
+    true
+  end
 end
