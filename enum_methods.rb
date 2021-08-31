@@ -1,12 +1,14 @@
+require 'pry'
+
 module Enumerable
   def my_each
     if block_given?
       for el in self
         yield el
       end
-      return self
+      self
     else
-      return to_enum(:my_each)
+      to_enum(:my_each)
     end
   end
 
@@ -70,13 +72,25 @@ module Enumerable
     true
   end
 
-  def my_inject(initial = nil)
+  def my_inject(initial = nil, symbol = nil)
+    if initial.instance_of?(Symbol)
+      symbol = initial
+      initial = nil
+    end
+
     accum = initial ? initial : self[0]
-    if initial
-      self.my_each { |el| accum = yield accum, el }
+    shift = is_a?(Hash) ? slice(keys[1], keys[-1]) : self[1..-1]
+    sym_block = lambda { |el| accum = accum.send(symbol, el) }
+    standard_block = lambda { |el| accum = yield accum, el }
+
+    if symbol && initial
+      my_each(&sym_block)
+    elsif initial
+      my_each(&standard_block)
+    elsif symbol
+      shift.my_each(&sym_block)
     else
-      shift = is_a?(Hash) ? slice(keys[1], keys[-1]) : self[1..-1]
-      shift.my_each { |el| accum = yield accum, el }
+      shift.my_each(&standard_block)
     end
     accum
   end
