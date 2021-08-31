@@ -69,4 +69,15 @@ module Enumerable
     end
     true
   end
+
+  def my_inject(initial = nil)
+    accum = initial ? initial : self[0]
+    if initial
+      self.my_each { |el| accum = yield accum, el }
+    else
+      shift = is_a?(Hash) ? slice(keys[1], keys[-1]) : self[1..-1]
+      shift.my_each { |el| accum = yield accum, el }
+    end
+    accum
+  end
 end
