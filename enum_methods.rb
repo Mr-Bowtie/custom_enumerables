@@ -80,4 +80,16 @@ module Enumerable
     end
     accum
   end
+
+  def my_count(item = nil)
+    count = 0
+    if block_given?
+      my_each { |el| count += 1 if yield el }
+    elsif !item.nil?
+      my_each { |el| count += 1 if el == item }
+    else
+      count = self.size
+    end
+    count
+  end
 end
