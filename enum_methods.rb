@@ -36,4 +36,15 @@ module Enumerable
       return to_enum(:my_select)
     end
   end
+
+  def my_all?(pattern = nil)
+    if block_given?
+      self.my_each { |el| return false unless yield el }
+    elsif pattern
+      self.my_each { |el| return false unless pattern === el }
+    else
+      self.my_each { |el| return false unless el }
+    end
+    true
+  end
 end
