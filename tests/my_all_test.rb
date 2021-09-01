@@ -1,4 +1,4 @@
-require_relative 'enum_methods'
+require_relative '../enum_methods'
 arr = [1, 2, 3, 4]
 hsh = { a: 1, b: 2, c: 3 }
 puts '==: my_all?'

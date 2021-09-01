@@ -1,4 +1,4 @@
-require_relative 'enum_methods'
+require_relative '../enum_methods'
 
 arr = [1, 2, 3]
 hsh = { a: 2, b: 'hello', c: 3 }

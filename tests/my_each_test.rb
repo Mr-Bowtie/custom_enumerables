@@ -1,4 +1,4 @@
-require './enum_methods.rb'
+require '../enum_methods.rb'
 
 a = ['a', 'b', 'c']
 b = { a: 1, b: 2, c: 3 }

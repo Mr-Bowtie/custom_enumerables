@@ -1,4 +1,4 @@
-require_relative './enum_methods.rb'
+require_relative '../enum_methods.rb'
 
 arr = [1, 2, 3, 4, 5, 6]
 my_hash = { a: 1, b: 2, c: 3 }
