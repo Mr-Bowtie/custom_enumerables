@@ -1,5 +1,3 @@
-require 'pry'
-
 module Enumerable
   def my_each
     if block_given?
@@ -105,5 +103,17 @@ module Enumerable
       count = self.size
     end
     count
+  end
+
+  def my_map(proc = nil)
+    new_arr = []
+    if proc
+      my_each { |el| new_arr << proc.call(el) }
+    elsif block_given?
+      my_each { |el| new_arr << yield(el) }
+    else
+      to_enum(:my_map)
+    end
+    new_arr
   end
 end
